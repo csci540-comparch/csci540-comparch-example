@@ -6,6 +6,7 @@
 *.out
 sim
 test
+assg04-cache-performance
 \#*
 .\#*
 TODO.md
