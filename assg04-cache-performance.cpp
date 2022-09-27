@@ -4,7 +4,7 @@
  *
  * @author Derek Harter
  * @note   cwid: 123456
- * @date   Spring 2022
+ * @date   Fall 2022
  * @note   ide:  g++ 8.2.0 / GNU Make 4.2.1
  *
  * Given two implementations of calculating the squared
@@ -64,13 +64,13 @@ void squaredDifferenceVersionB(int n, double X[], double Y[], double Z[])
 {
   int i;
   
-  // initial loop calculates the difference of the values X - Y
+  // initial loop calculates the difference of the values Z = X - Y
   for (i = 0; i < n; i++)
   {
     Z[i] = X[i] - Y[i];
   }
 
-  // now calculate the square of the differences from previous calculation
+  // now calculate the square of the differences from previous calculation Z = Z^2
   for (i = 0; i < n; i++)
   {
     Z[i] = Z[i] * Z[i];
@@ -93,7 +93,7 @@ void squaredDifferenceVersionB(int n, double X[], double Y[], double Z[])
  * @param Z An array of z results to be passed to the function we are invoking.
  *
  * @returns double Returns the elapsed time that the function
- *   took to complete its tack.
+ *   took to complete its task.
  */
 double timeit(void (*function)(int, double*, double*, double*), int n, double X[], double Y[], double Z[])
 {
@@ -194,6 +194,7 @@ void testVersions(int n, int numTrials)
   averageB = totalTime / numTrials;
   cout << "Average elapsed time: " << fixed << averageB << " ns" << endl << endl;
 
+  // determine the speedup, the ratio of the slower to the faster performaning versions
   speedup = averageB / averageA;
   cout << "Speedup: " << speedup << endl;
   cout << endl;
