@@ -22,12 +22,18 @@ sources =
 ## all          : by default generate all executables
 ##
 .PHONY : all
-all : assg04-cache-performance
+all : assg04-cache-performance ch12-littlendian
 
 ## assg04-cache-performance
 ##              : Build and link together assg04-cache-performance example
 ##
 assg04-cache-performance : assg04-cache-performance.o
+	$(GCC) $(GCC_FLAGS) $< $(LINKS) -o $@
+
+## ch12-littlendian
+##              : Build and link together littlendian example
+##
+littlendian : littlendian.o
 	$(GCC) $(GCC_FLAGS) $< $(LINKS) -o $@
 
 
