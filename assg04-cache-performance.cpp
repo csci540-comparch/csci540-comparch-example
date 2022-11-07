@@ -12,18 +12,17 @@
  * implications that result from cacheing issues for the
  * two separate versions of the calculation.
  */
-#include <iostream>
-#include <iomanip>
 #include <chrono>
 #include <cstdlib>
 #include <ctime>
+#include <iomanip>
+#include <iostream>
 
 using namespace std;
 
-
 /**
  * @brief Squared Difference Program A
- * 
+ *
  * Calculate the squared difference using Program code snippet BA
  * from the assignment.  Implement as a single loop with the
  * difference then squaring occurring together in the loop.
@@ -37,7 +36,7 @@ using namespace std;
 void squaredDifferenceVersionA(int n, double X[], double Y[], double Z[])
 {
   int i;
-  
+
   // use single loop to calculate both difference and square it in the loop
   for (i = 0; i < n; i++)
   {
@@ -46,11 +45,10 @@ void squaredDifferenceVersionA(int n, double X[], double Y[], double Z[])
   }
 }
 
-
 /**
  * @brief Squared Difference Program B
- * 
- * Calculate the squared difference using Program code snippet B 
+ *
+ * Calculate the squared difference using Program code snippet B
  * from the assignment.  Implement calculation in two separate
  * loops.
  *
@@ -63,7 +61,7 @@ void squaredDifferenceVersionA(int n, double X[], double Y[], double Z[])
 void squaredDifferenceVersionB(int n, double X[], double Y[], double Z[])
 {
   int i;
-  
+
   // initial loop calculates the difference of the values Z = X - Y
   for (i = 0; i < n; i++)
   {
@@ -76,7 +74,6 @@ void squaredDifferenceVersionB(int n, double X[], double Y[], double Z[])
     Z[i] = Z[i] * Z[i];
   }
 }
-
 
 /**
  * @brief time a function
@@ -102,15 +99,14 @@ double timeit(void (*function)(int, double*, double*, double*), int n, double X[
   auto start = chrono::high_resolution_clock::now();
   (*function)(n, X, Y, Z);
   auto end = chrono::high_resolution_clock::now();
-  
+
   elapsedTime = chrono::duration_cast<chrono::nanoseconds>(end - start).count();
   return elapsedTime;
 }
 
-
 /**
  * @brief initialize arrays
- * 
+ *
  * Initialize input arrays to random values for tests, and initialize result
  * array to all 0's.  Calling this funciton before performing the calculations
  * also ensures cache memory is in a similar state before beginning calculations.
@@ -124,23 +120,22 @@ void initializeArrays(int n, double X[], double Y[], double Z[])
 {
   for (int i = 0; i < n; i++)
   {
-    X[i] = ((double) rand() / (RAND_MAX)); // random value from 0.0 to 1.0
-    Y[i] = ((double) rand() / (RAND_MAX)); // random value from 0.0 to 1.0
+    X[i] = ((double)rand() / (RAND_MAX)); // random value from 0.0 to 1.0
+    Y[i] = ((double)rand() / (RAND_MAX)); // random value from 0.0 to 1.0
     Z[i] = 0.0;
   }
 }
-
 
 /**
  * @brief A/B test algorithms for size n
  *
  * Test the two different versions of our algorithm for a given size
  * n of values to perform the calculation with.
- * 
+ *
  * @param n The number of values to allocate and test with.
  * @param numTrials The number of independent trials to perform and
  *   measure the elapsed time of.
- *  
+ *
  */
 void testVersions(int n, int numTrials)
 {
@@ -155,7 +150,7 @@ void testVersions(int n, int numTrials)
   double averageA;
   double averageB;
   double speedup;
-  
+
   // dynamically allocate arrays of the given size for the calculations
   X = new double[n];
   Y = new double[n];
@@ -163,33 +158,33 @@ void testVersions(int n, int numTrials)
 
   // not necessary to initialize, but this will ensure values are cached same for A and B
   initializeArrays(n, X, Y, Z);
-  
+
   // test trials with version A of calculation
   cout << "Perform Calculation A (1 loop faster) with n = " << n << endl;
   totalTime = 0.0;
   for (int trial = 1; trial <= numTrials; trial++)
   {
-    //cout << "Calculation A Trial: " << trial << " ";
+    // cout << "Calculation A Trial: " << trial << " ";
     elapsedTime = timeit(squaredDifferenceVersionA, n, X, Y, Z);
     totalTime += elapsedTime;
-    //cout << "time: " << fixed << elapsedTime << " ns" << endl;
+    // cout << "time: " << fixed << elapsedTime << " ns" << endl;
   }
   averageA = totalTime / numTrials;
-  cout << "Average elapsed time: " << fixed << averageA << " ns"<<  endl;
+  cout << "Average elapsed time: " << fixed << averageA << " ns" << endl;
   cout << endl;
 
   // not necessary to initialize, but this will ensure values are cached same for A and B
   initializeArrays(n, X, Y, Z);
-  
+
   // test trials with version B of calculation
   cout << "Perform Calculation B (2 loops slower) with n = " << n << endl;
   totalTime = 0.0;
   for (int trial = 1; trial <= numTrials; trial++)
   {
-    //cout << "Calculation B Trial: " << trial << " ";
+    // cout << "Calculation B Trial: " << trial << " ";
     elapsedTime = timeit(squaredDifferenceVersionB, n, X, Y, Z);
     totalTime += elapsedTime;
-    //cout << "time: " << fixed << elapsedTime << " ns" << endl;
+    // cout << "time: " << fixed << elapsedTime << " ns" << endl;
   }
   averageB = totalTime / numTrials;
   cout << "Average elapsed time: " << fixed << averageB << " ns" << endl << endl;
@@ -204,7 +199,6 @@ void testVersions(int n, int numTrials)
   delete[] Y;
   delete[] Z;
 }
-
 
 /**
  * @brief main entry
@@ -235,7 +229,7 @@ int main(int argc, char* argv[])
   cout << "=============== n = " << n << " numTrials = " << numTrials << " ===============" << endl;
   testVersions(n, numTrials);
   cout << endl << endl;
-  
+
   // return 0 to indicate successful completion
   return 0;
 }
