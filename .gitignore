@@ -4,9 +4,11 @@
 *.tar.gz
 *.log
 *.out
+*.orig
 sim
 test
 assg04-cache-performance
+ch12-littlendian
 \#*
 .\#*
 TODO.md

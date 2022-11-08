@@ -22,7 +22,7 @@ sources =
 ## all          : by default generate all executables
 ##
 .PHONY : all
-all : assg04-cache-performance ch12-littlendian
+all : assg04-cache-performance ch12-littlendian ch13-x86-assembly-1 ch13-x86-assembly-2 ch13-x86-assembly-3
 
 ## assg04-cache-performance
 ##              : Build and link together assg04-cache-performance example
@@ -33,9 +33,32 @@ assg04-cache-performance : assg04-cache-performance.o
 ## ch12-littlendian
 ##              : Build and link together littlendian example
 ##
-littlendian : littlendian.o
+ch12-littlendian : ch12-littlendian.o
 	$(GCC) $(GCC_FLAGS) $< $(LINKS) -o $@
 
+## ch13-x86-assembly-1
+##              : Build and link together first x86 assembly example
+##
+ch13-x86-assembly-1 :
+	@echo "\n\033[33;1mBuilding GAS Hello World\033[0m"
+	as --march=i386 --32 ./ch13-x86-assembly-1.s -o ch13-x86-assembly-1.o
+	ld -m elf_i386  ch13-x86-assembly-1.o -o ch13-x86-assembly-1	
+
+## ch13-x86-assembly-2
+##              : Build and link together second x86 assembly example
+##
+ch13-x86-assembly-2 :
+	@echo "\n\033[33;1mBuilding GAS Hello World second example\033[0m"
+	as --march=i386 --32 ./ch13-x86-assembly-2.s -o ch13-x86-assembly-2.o
+	ld -m elf_i386  ch13-x86-assembly-2.o -o ch13-x86-assembly-2	
+
+## ch13-x86-assembly-3
+##              : Build and link together third x86 assembly example
+##
+ch13-x86-assembly-3 :
+	@echo "\n\033[33;1mBuilding GAS Hello World third example\033[0m"
+	as --march=i386 --32 ./ch13-x86-assembly-3.s -o ch13-x86-assembly-3.o
+	ld -m elf_i386  ch13-x86-assembly-3.o -o ch13-x86-assembly-3	
 
 %.o: %.cpp
 	$(GCC) $(GCC_FLAGS) $(INCLUDES) -c $< -o $@
@@ -58,7 +81,7 @@ unit-tests :
 ##
 .PHONY : clean
 clean  :
-	$(RM) assg04-cache-performance *.exe *.o *.gch *~
+	$(RM) assg04-cache-performance ch12-littlendian ch13-x86-assembly-1 ch13-x86-assembly-2 ch13-x86-assembly-3 *.exe *.o *.gch *~
 
 
 ## help         : Get all build targets supported by this build.
