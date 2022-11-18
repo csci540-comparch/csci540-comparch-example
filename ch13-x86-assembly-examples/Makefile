@@ -15,7 +15,7 @@ RM=rm -rf
 # source files in this project (for beautification)
 PROJECT_NAME=comparch
 sources = 
-executables = gas-64bit-1 gas-64bit-2 gas-64bit-3 callsum security-1 security-2 security-3 
+executables = gas-64bit-1 gas-64bit-2 gas-64bit-3 callsum security-1 security-2 security-3 gcd
 
 ## List of all valid targets in this project:
 ## ------------------------------------------
@@ -51,6 +51,13 @@ callsum : sum.s callsum.c
 	as sum.s -o sum.o
 	gcc -c callsum.c -o callsum.o
 	gcc -static sum.o callsum.o -o callsum
+
+## gcd
+##              : Build gcd example
+gcd : gcd.c gcd.s
+	as -g gcd.s -o gcd2.o
+	gcc -g -c gcd.c -o gcd.o
+	gcc -g -static gcd.o gcd2.o -o gcd
 
 ## security-1
 ##              : Build and link together first security x86 assembly example
