@@ -30,6 +30,13 @@ all : assg04-cache-performance ch12-littlendian ch13-x86-assembly-1 ch13-x86-ass
 assg04-cache-performance : assg04-cache-performance.o
 	$(GCC) $(GCC_FLAGS) $< $(LINKS) -o $@
 
+## ch10-computer-arithmetic
+##              : Build and link together arithmetic
+##
+ch10-computer-arithmetic : ch10-computer-arithmetic.o
+	$(GCC) $(GCC_FLAGS) $< $(LINKS) -o $@
+
+
 ## ch12-littlendian
 ##              : Build and link together littlendian example
 ##
